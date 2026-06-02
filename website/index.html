@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Nancy Tourisme</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+        <link rel="stylesheet" href="style.css" />
+        <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script> 
+    </head>
+
+    <body>
+        <nav>
+            <button class="nav-btn" onclick="showVelibs()">
+                <img src="assets/bike.svg" alt="velo">
+                <h3>VELIB</h3>
+            </button>
+
+            <button class="nav-btn" onclick="showRestaurants()">
+                <img src="assets/food.svg" alt="restaurant">
+                <h3>RESTAURANT</h3>
+            </button>
+
+            <button class="nav-btn" onclick="showAccidents()">
+                <img src="assets/car.svg" alt="accident">
+                <h3>ACCIDENT</h3>
+            </button>
+
+            <div class="nav-title">
+                <h2>NANCY TOURISME</h2>
+            </div>
+
+            <input id="search" class="nav-search" type="text" placeholder="ENTRER LA RECHERCHE">
+
+            <button class="nav-search-btn" onclick="search()" aria-label="Rechercher">
+                <img src="assets/search.svg" alt="rechercher">
+            </button>
+        </nav>
+
+        <div class="container">
+            <div class="list-items">
+                <p>CHARGEMENT EN COURS</p>
+            </div>
+            <div id="map" class="map"></div>
+                <script type="module" src="./dist/bundle.js"></script>
+            </div>
+        </div>
+    </body>
+</html>

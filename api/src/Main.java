@@ -8,24 +8,35 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import java.util.Map;
+
+// java -cp ".;../mariadb-java-client-3.5.8.jar" Main
+
 public class Main {
 
     public static void main(String[] args) throws Exception {
+        Class.forName("org.mariadb.jdbc.Driver");
+
+        // Load .env
+        Map<String, String> env = EnvLoader.load("../.env");
+
+        // Init DB
+        Database.init(env);
+
         ArrayList<Route> routesList = new ArrayList<>();
 
         routesList.add(new Route("ping", PingHandler.class));
         routesList.add(new Route("road", RoadHandler.class));
+        routesList.add(new Route("restaurants", RestaurantHandler.class));
 
-        // Création du serveur sur le port 8080
         HttpServer server = HttpServer.create(new InetSocketAddress(8080), 0);
 
-        // Définition de la route /ping
-
-        for (int i = 0; i < routesList.size(); i++) {
-            server.createContext("/" + routesList.get(i).name, (HttpHandler) routesList.get(i).classRoute.getDeclaredConstructor().newInstance());
+        for (Route route : routesList) {
+            server.createContext("/" + route.name,
+                (HttpHandler) route.classRoute.getDeclaredConstructor().newInstance()
+            );
         }
 
-        // Lancement du serveur
         server.setExecutor(null);
         server.start();
 

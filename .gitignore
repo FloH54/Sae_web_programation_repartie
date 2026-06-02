@@ -1,3 +1,5 @@
 *.class
-/API-Java/index.html
-/ressources/persistence.xml
+.env
+website/node_modules
+website/dist
+package-lock.json
