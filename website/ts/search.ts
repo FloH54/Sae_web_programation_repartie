@@ -1,8 +1,8 @@
 import { clearOverlayMarkers } from "./map";
 import { currentMode } from "./store";
-import { velibStations } from "./bike";
-import { restaurants } from "./food";
-import { incidents } from "./car";
+import { velibStations, renderStations } from "./bike";
+import { restaurants, renderRestaurants } from "./food";
+import { incidents, renderIncidents } from "./car";
 import { setList } from "./uiList";
 
 export function search(query: string) {
@@ -16,11 +16,15 @@ export function search(query: string) {
       s.address.toLowerCase().includes(q)
     );
 
+    renderStations(filtered);
+
     setList(filtered.map(s => ({
       title: s.name,
       subtitle: s.address,
       typeLabel: "velo"
     })));
+
+    return;
   }
 
   if (currentMode === "restaurant") {
@@ -29,11 +33,15 @@ export function search(query: string) {
       r.address.toLowerCase().includes(q)
     );
 
+    renderRestaurants(filtered);
+
     setList(filtered.map(r => ({
       title: r.name,
       subtitle: r.address,
       typeLabel: "restaurant"
     })));
+
+    return;
   }
 
   if (currentMode === "incident") {
@@ -42,6 +50,8 @@ export function search(query: string) {
       i.type.toLowerCase().includes(q) ||
       i.description.toLowerCase().includes(q)
     );
+
+    renderIncidents(filtered);
 
     setList(filtered.map(i => ({
       title: i.street,
@@ -52,23 +62,35 @@ export function search(query: string) {
 }
 
 export function refreshList() {
+  clearOverlayMarkers();
+
   if (currentMode === "velo") {
+    renderStations(velibStations);
+
     setList(velibStations.map(s => ({
       title: s.name,
       subtitle: s.address,
       typeLabel: "velo"
     })));
+
+    return;
   }
 
   if (currentMode === "restaurant") {
+    renderRestaurants(restaurants);
+
     setList(restaurants.map(r => ({
       title: r.name,
       subtitle: r.address,
       typeLabel: "restaurant"
     })));
+
+    return;
   }
 
   if (currentMode === "incident") {
+    renderIncidents(incidents);
+
     setList(incidents.map(i => ({
       title: i.street,
       subtitle: i.type,
