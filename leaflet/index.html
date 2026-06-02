@@ -1,0 +1,174 @@
+<html>
+    <head>
+        <title>Leaflet</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+        <link rel="stylesheet" href="style.css" />
+        <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    </head>
+    <body>
+        <nav>
+            <button class="nav-action" onclick="showVelibs()">Velibs</button>
+            <button class="nav-action" onclick="showRestaurants()">Restaurants</button>
+            <button class="nav-action" onclick="showAccidents()">Accident</button>
+            <input type="text" id="search" placeholder="Search for a location">
+            <button class="search-button" onclick="search()"><img class="search-img" src="search.png" alt="Search"></button>
+        </nav>
+
+        <div class="info-container">
+        </div>
+
+        <div id="map"></div>
+        <script>
+            var map = L.map('map').setView([48.683, 6.2], 13);
+
+            map.zoomControl.remove();
+
+            L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 19,
+                attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+            }).addTo(map);
+
+            L.control.zoom({
+                position: 'bottomright'
+            }).addTo(map);
+
+            var overlayMarkers = [];
+
+            function clearOverlayMarkers() {
+                overlayMarkers.forEach(marker => map.removeLayer(marker));
+                overlayMarkers = [];
+            }
+
+            function search() {
+                var query = document.getElementById('search').value;
+                fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${query}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.length > 0) {
+                            var lat = data[0].lat;
+                            var lon = data[0].lon;
+                            map.setView([lat, lon], 13);
+                            var marker = L.marker([lat, lon]).addTo(map).bindPopup(`<b>${query}</b><br>${data[0].display_name}`).openPopup();
+                            overlayMarkers.push(marker);
+                        } else {
+                            alert("Localisation non trouvée.");
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+            }
+
+            function showVelibs() {
+                clearOverlayMarkers();
+                loadVelibStations();
+            }
+
+            function showRestaurants() {
+                clearOverlayMarkers();
+                var lat = 48.683;
+                var lon = 6.2;
+                var restaurantMarker = L.marker([lat, lon]).addTo(map);
+                restaurantMarker.bindPopup('<b>Crous</b>').openPopup();
+                overlayMarkers.push(restaurantMarker);
+                map.setView([lat, lon], 13);
+            }
+
+            function showAccidents() {
+                clearOverlayMarkers();
+                loadIncidents();
+            }
+
+            function loadVelibStations() {
+                const apiUrl = 'https://api.cyclocity.fr/contracts/nancy/gbfs/v3/station_information.json';
+                fetch(apiUrl)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error("Erreur lors de la récupération des données");
+                        }
+                        return response.json();
+                    })
+                    .then(apiResult => {
+                        const stations = apiResult.data.stations;
+                        stations.forEach(station => {
+                            const lat = station.lat;
+                            const lon = station.lon;
+                            const stationMarker = L.marker([lat, lon]).addTo(map);
+                            const popupContent = `
+                                <b>${station.name[1].text}</b><br>
+                                <i>Adresse : ${station.address || 'Non renseignée'}</i><br>
+                                <b>Capacité :</b> ${station.capacity}
+                            `;
+                            stationMarker.bindPopup(popupContent);
+                            overlayMarkers.push(stationMarker);
+                        });
+                    })
+                    .catch(error => {
+                        console.error("Erreur Vélib :", error);
+                    });
+            }
+
+            function fillInfoBox(content) {
+                const container = document.querySelector('.info-container');
+                const apiURL = 'https://api.cyclocity.fr/contracts/nancy/gbfs/v3/station_information.json';
+                fetch(apiURL)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error("Erreur lors de la récupération des données");
+                        }
+                        return response.json();
+                    })
+                    .then(apiResult => {
+                        const stations = apiResult.data.stations;
+                        stations.forEach(station => {
+                            const stationInfoBox = document.createElement('div');
+                            stationInfoBox.className = 'info-box';
+                            stationInfoBox.innerHTML = `
+                                <b>${station.name[1].text}</b><br>
+                                <i>Adresse : ${station.address || 'Non renseignée'}</i><br>
+                                <b>Capacité :</b> ${station.capacity}
+                            `;
+                            container.appendChild(stationInfoBox);
+                        });
+                    })
+                    .catch(error => {
+                        console.error("Erreur Vélib :", error);
+                    });
+            }
+
+
+
+            function loadIncidents() {
+                const apiUrl = 'http://localhost:8080/road';
+                fetch(apiUrl)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error("Erreur lors de la récupération des données");
+                        }
+                        return response.json();
+                    })
+                    .then(apiResult => {
+                        const incidents = apiResult.incidents;
+                        incidents.forEach(incident => {
+                            const lat = incident.location.polyline.split(' ')[0];
+                            const lon = incident.location.polyline.split(' ')[1];
+                            const incidentMarker = L.marker([lat, lon], {icon: L.icon({iconUrl: 'incident-icon.png', iconSize: [30, 30], iconAnchor: [22, 94]})}).addTo(map);
+                            const popupContent = `
+                                <b>${incident.location.street}</b><br>
+                                <b>${incident.type}</b><br>
+                                <i>${incident.description}</i><br>
+                                <i>${incident.short_description}</i><br>
+                                <b>Heure :</b> ${new Date(incident.timestamp * 1000).toLocaleString()}
+                            `;
+                            incidentMarker.bindPopup(popupContent);
+                        });
+                    })
+                    .catch(error => {
+                        console.error("Erreur Incidents :", error);
+                    });
+            }
+
+            fillInfoBox();
+        </script>
+    </body>
+</html>
