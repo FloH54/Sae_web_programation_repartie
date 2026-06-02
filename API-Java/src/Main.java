@@ -14,6 +14,7 @@ public class Main {
         ArrayList<Route> routesList = new ArrayList<>();
 
         routesList.add(new Route("ping", PingHandler.class));
+        routesList.add(new Route("road", RoadHandler.class));
 
         // Création du serveur sur le port 8080
         HttpServer server = HttpServer.create(new InetSocketAddress(8080), 0);
