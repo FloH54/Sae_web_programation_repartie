@@ -8,13 +8,24 @@ import java.time.LocalDateTime;
 @Table(name = "reservation")
 public class Reservation {
 *
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_reservation")
     private Integer idReservation;
-    // Clé étrangère vers restaurant — on charge le restaurant complet dans le JSON
+
+    // Relation Plusieurs-à-Un : Plusieurs réservations pour un seul restaurant
+    @ManyToOne(fetch = FetchType.LAZY) // Lazy = Ne charge le restaurant que si on l'appelle
+    @JoinColumn(name = "id_restaurant", nullable = false) // Crée la clé étrangère
     private Restaurant restaurant;
+
+    @Column(name = "nb_personne", nullable = false)
     private Integer nbPersonne;
+
+    @Column(name = "date", nullable = false)
     private LocalDateTime date;
     
-    // Constructeurs
+    // Constructeur sans argument obligatoire pour Hibernate
+    public Reservation() {}
 
     public Reservation(Restaurant restaurant, Integer nbPersonne, LocalDateTime date) {
         this.restaurant = restaurant;

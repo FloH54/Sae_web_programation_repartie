@@ -8,17 +8,29 @@ import java.util.List;
 @Table(name = "restaurant")
 public class Restaurant {
 
+    @Id // Clé primaire
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // AUTO_INCREMENT
+    @Column(name = "id_restaurant") // Le nom de la colonne en base de données
     private Integer idRestaurant;
+
+    @Column(name = "nom", nullable = false, length = 150)
     private String nom;
-    private String coordonneeGps; // Format : "48.8566, 2.3522"
+
+    @Column(name = "coordonnee_gps", length = 100)
+    private String coordonneeGps; 
+
+    @Column(name = "adresse", nullable = false)
     private String adresse;
 
-    // Relation inverse : un restaurant a plusieurs réservations
-    // @JsonIgnore évite la boucle infinie lors de la sérialisation JSON
+    // Relation Un-à-Plusieurs : Un restaurant a plusieurs réservations
+    // CascadeType.ALL : si on supprime un restaurant, on supprime ses réservations
+    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore // Évite la boucle infinie lors de la génération du JSON
     private List<Reservation> reservations;
 
+    // Constructeur sans argument obligatoire pour Hibernate
+    public Restaurant() {}
 
-    // Constructeurs
     public Restaurant(String nom, String coordonneeGps, String adresse) {
         this.nom = nom;
         this.coordonneeGps = coordonneeGps;
