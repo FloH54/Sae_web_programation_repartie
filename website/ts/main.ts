@@ -2,6 +2,7 @@ import { setMode } from "./store";
 import { loadVelibStations } from "./bike";
 import { loadRestaurants } from "./food";
 import { loadIncidents } from "./car";
+import { loadCrous } from "./crous";
 import { clearOverlayMarkers } from "./map";
 import { refreshList, search } from "./search";
 import {
@@ -46,6 +47,13 @@ document.addEventListener("DOMContentLoaded", () => {
   setMode("incident");
   clearOverlayMarkers();
   loadIncidents();
+  setTimeout(refreshList, 200);
+};
+
+(window as any).showCrous = () => {
+  setMode("crous");
+  clearOverlayMarkers();
+  loadCrous();
   setTimeout(refreshList, 200);
 };
 

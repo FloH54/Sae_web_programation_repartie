@@ -1,4 +1,4 @@
-export type Mode = "velo" | "restaurant" | "incident";
+export type Mode = "velo" | "restaurant" | "incident" | "crous";
 
 export let currentMode: Mode = "velo";
 

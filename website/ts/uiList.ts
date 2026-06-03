@@ -1,4 +1,9 @@
-export function setList(items: { id?: string | number; title: string; subtitle: string; typeLabel: "velo" | "restaurant" | "incident" }[]) {
+export function setList(items: {
+  id?: string | number;
+  title: string;
+  subtitle: string;
+  typeLabel: "velo" | "restaurant" | "incident" | "crous";
+}[]) {
   const container = document.querySelector(".list-items")!;
   container.innerHTML = "";
 
@@ -20,7 +25,7 @@ export function setList(items: { id?: string | number; title: string; subtitle: 
     div.className = "item";
 
     const icon =
-      i.typeLabel === "restaurant"
+      i.typeLabel === "restaurant" || i.typeLabel === "crous"
         ? "assets/food.svg"
         : i.typeLabel === "velo"
         ? "assets/bike.svg"
@@ -29,6 +34,8 @@ export function setList(items: { id?: string | number; title: string; subtitle: 
     const label =
       i.typeLabel === "restaurant"
         ? "Restaurant"
+        : i.typeLabel === "crous"
+        ? "Crous"
         : i.typeLabel === "velo"
         ? "Station de Vélo"
         : "Incident";
@@ -36,12 +43,12 @@ export function setList(items: { id?: string | number; title: string; subtitle: 
     const restaurantId = i.id ?? "";
 
     let reservationBtn = "";
-    if(i.typeLabel == "restaurant"){
+    if (i.typeLabel === "restaurant") {
       reservationBtn = `
-      <div class="button">
-        <button onclick="openReservationModal('${restaurantId}')">Réservation</button>
-      </div>
-      `
+        <div class="button">
+          <button onclick="openReservationModal('${restaurantId}')">Réservation</button>
+        </div>
+      `;
     }
 
     div.innerHTML = `
