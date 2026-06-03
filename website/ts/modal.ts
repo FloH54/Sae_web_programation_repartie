@@ -5,11 +5,35 @@ function openReservationModal(restaurantId: string): void {
 
 function closeReservationModal(): void {
   document.getElementById("reservationModal")!.classList.remove("active");
+  // Reset form
   (document.getElementById("res-nom") as HTMLInputElement).value = "";
   (document.getElementById("res-prenom") as HTMLInputElement).value = "";
   (document.getElementById("res-tel") as HTMLInputElement).value = "";
   (document.getElementById("res-nb") as HTMLInputElement).value = "";
   (document.getElementById("res-restaurant-id") as HTMLInputElement).value = "";
+  // Reset view
+  showReservationForm();
+}
+
+function showReservationForm(): void {
+  document.getElementById("modal-form-content")!.style.display = "";
+  document.getElementById("modal-success-content")!.style.display = "none";
+  document.getElementById("modal-error-content")!.style.display = "none";
+}
+
+function showModalSuccess(): void {
+  document.getElementById("modal-form-content")!.style.display = "none";
+  document.getElementById("modal-error-content")!.style.display = "none";
+  document.getElementById("modal-success-content")!.style.display = "";
+}
+
+function showModalError(message: string): void {
+  document.getElementById("modal-form-content")!.style.display = "none";
+  document.getElementById("modal-success-content")!.style.display = "none";
+  const errorEl = document.getElementById("modal-error-content")!;
+  errorEl.style.display = "";
+  const msgEl = document.getElementById("modal-error-message");
+  if (msgEl) msgEl.textContent = message;
 }
 
 async function submitReservation(): Promise<void> {
@@ -22,12 +46,12 @@ async function submitReservation(): Promise<void> {
   );
 
   if (!nom || !prenom || !tel || !nb) {
-    alert("Veuillez remplir tous les champs.");
+    showModalError("Veuillez remplir tous les champs.");
     return;
   }
 
   if (isNaN(restaurantId)) {
-    alert("Identifiant restaurant invalide.");
+    showModalError("Identifiant restaurant invalide.");
     return;
   }
 
@@ -45,13 +69,12 @@ async function submitReservation(): Promise<void> {
     });
 
     if (res.ok) {
-      closeReservationModal();
-      alert("Réservation envoyée avec succès !");
+      showModalSuccess();
     } else {
-      alert("Erreur lors de l'envoi. Veuillez réessayer.");
+      showModalError("Erreur lors de l'envoi. Veuillez réessayer.");
     }
   } catch {
-    alert("Impossible de contacter le serveur.");
+    showModalError("Impossible de contacter le serveur.");
   }
 }
 

@@ -400,3 +400,41 @@ nav {
     transform: translateY(-2px);
     box-shadow: 0 6px 18px rgba(255, 106, 28, 0.35);
 }
+
+.modal-status-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    font-weight: bold;
+    margin: 0 auto 0; /* le gap:24px du .modal gère l'espacement */
+}
+
+.modal-status-icon--success {
+    background-color: #FFF0E8;
+    color: #FF6A1C;
+    border: 2px solid #FF6A1C;
+}
+
+.modal-status-icon--error {
+    background-color: #F3F3F3;
+    color: #555;
+    border: 2px solid #D2D2D2;
+}
+
+#modal-success-content h2,
+#modal-error-content h2 {
+    border-bottom: 2px solid #FF6A1C;
+    padding-bottom: 12px;
+}
+
+#modal-success-content p,
+#modal-error-content p {
+    font-family: "Bree Serif", serif;
+    font-size: 16px;
+    color: #555;
+    margin: 0;
+}
