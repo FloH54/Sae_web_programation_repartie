@@ -35,6 +35,15 @@ export function setList(items: { id?: string | number; title: string; subtitle: 
 
     const restaurantId = i.id ?? "";
 
+    let reservationBtn = "";
+    if(i.typeLabel == "restaurant"){
+      reservationBtn = `
+      <div class="button">
+        <button onclick="openReservationModal('${restaurantId}')">Réservation</button>
+      </div>
+      `
+    }
+
     div.innerHTML = `
       <h3>${i.title}</h3>
       <p>${i.subtitle}</p>
@@ -42,9 +51,7 @@ export function setList(items: { id?: string | number; title: string; subtitle: 
         <img src="${icon}" alt="${label}">
         <p>${label}</p>
       </div>
-      <div class="button">
-        <button onclick="openReservationModal('${restaurantId}')">Réservation</button>
-      </div>
+      ${reservationBtn}
     `;
 
     container.appendChild(div);
