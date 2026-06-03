@@ -17,10 +17,17 @@ async function submitReservation(): Promise<void> {
   const prenom = (document.getElementById("res-prenom") as HTMLInputElement).value.trim();
   const tel = (document.getElementById("res-tel") as HTMLInputElement).value.trim();
   const nb = (document.getElementById("res-nb") as HTMLInputElement).value.trim();
-  const restaurantId = (document.getElementById("res-restaurant-id") as HTMLInputElement).value;
+  const restaurantId = parseInt(
+    (document.getElementById("res-restaurant-id") as HTMLInputElement).value
+  );
 
   if (!nom || !prenom || !tel || !nb) {
     alert("Veuillez remplir tous les champs.");
+    return;
+  }
+
+  if (isNaN(restaurantId)) {
+    alert("Identifiant restaurant invalide.");
     return;
   }
 

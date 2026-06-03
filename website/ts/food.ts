@@ -3,6 +3,7 @@ import { refreshList } from "./search";
 import * as L from "leaflet";
 
 export type Restaurant = {
+  id: number;
   name: string;
   address: string;
   lat: number;
@@ -20,6 +21,7 @@ export function loadRestaurants() {
         const [lat, lon] = i.gps.split(",").map((v: string) => v.trim());
 
         return {
+          id: i.id,
           name: i.nom,
           address: i.adresse,
           lat: +lat,

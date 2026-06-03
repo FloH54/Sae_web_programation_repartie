@@ -17,10 +17,8 @@ public class Main {
     public static void main(String[] args) throws Exception {
         Class.forName("org.mariadb.jdbc.Driver");
 
-        // Load .env
         Map<String, String> env = EnvLoader.load("../.env");
 
-        // Init DB
         Database.init(env);
 
         ArrayList<Route> routesList = new ArrayList<>();
@@ -28,6 +26,7 @@ public class Main {
         routesList.add(new Route("ping", PingHandler.class));
         routesList.add(new Route("road", RoadHandler.class));
         routesList.add(new Route("restaurants", RestaurantHandler.class));
+        routesList.add(new Route("reservation", ReservationHandler.class));
 
         HttpServer server = HttpServer.create(new InetSocketAddress(8080), 0);
 

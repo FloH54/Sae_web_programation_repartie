@@ -30,6 +30,7 @@ export function search(query: string) {
     );
 
     setList(filtered.map(r => ({
+      id: r.id,
       title: r.name,
       subtitle: r.address,
       typeLabel: "restaurant"
@@ -62,6 +63,7 @@ export function refreshList() {
 
   if (currentMode === "restaurant") {
     setList(restaurants.map(r => ({
+      id: r.id,
       title: r.name,
       subtitle: r.address,
       typeLabel: "restaurant"
