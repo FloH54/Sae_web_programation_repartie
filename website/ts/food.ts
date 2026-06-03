@@ -50,8 +50,8 @@ export function renderRestaurants(list: Restaurant[]) {
             className: 'station-marker'
           })
         }).bindPopup(`
-          <b>${i.name}</b><br>
-          ${i.address}
+          <b class="title">${i.name}</b><br>
+          <p class="subtitle">${i.address}</p>
         `);
 
     addMarker(marker);

@@ -48,9 +48,9 @@ export function renderIncidents(list: Incident[]) {
             className: 'station-marker'
           })
     }).bindPopup(`
-      <b>${i.street}</b><br>
-      <b>${i.type}</b><br>
-      ${i.description}
+      <b class="title">${i.street}</b><br>
+      <p class="subtitle">${i.description}</p>
+      <div class="type"><img src="assets/car.svg"/><p>${i.type}</p></div>
     `);
 
     addMarker(marker);

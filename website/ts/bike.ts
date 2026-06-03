@@ -38,7 +38,7 @@ export function renderStations(list: Station[]) {
         className: 'station-marker'
       })
     }).bindPopup(
-      `<b>${s.name}</b><br>${s.address}<br>Capacité : ${s.capacity}`
+      `<b class="title">${s.name}</b><br><p class="subtitle">${s.address}</p><br><div class="type"><img src="assets/bike.svg"/><p>Capacité : ${s.capacity}</p></div>`
     );
 
     addMarker(marker);
