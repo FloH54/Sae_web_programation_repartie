@@ -3,6 +3,7 @@ import { refreshList } from "./search";
 import * as L from "leaflet";
 
 export type Restaurant = {
+  id: number;
   name: string;
   address: string;
   lat: number;
@@ -20,6 +21,7 @@ export function loadRestaurants() {
         const [lat, lon] = i.gps.split(",").map((v: string) => v.trim());
 
         return {
+          id: i.id,
           name: i.nom,
           address: i.adresse,
           lat: +lat,
@@ -41,9 +43,15 @@ export function loadRestaurants() {
 
 export function renderRestaurants(list: Restaurant[]) {
   list.forEach(i => {
-    const marker = L.marker([i.lat, i.lon]).bindPopup(`
-          <b>${i.name}</b><br>
-          ${i.address}
+    const marker = L.marker([i.lat, i.lon], {
+          icon: L.icon({
+            iconUrl: './assets/location.svg',
+            iconSize: [30, 30],
+            className: 'station-marker'
+          })
+        }).bindPopup(`
+          <b class="title">${i.name}</b><br>
+          <p class="subtitle">${i.address}</p>
         `);
 
     addMarker(marker);

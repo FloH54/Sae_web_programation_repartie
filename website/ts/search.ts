@@ -3,6 +3,7 @@ import { currentMode } from "./store";
 import { velibStations, renderStations } from "./bike";
 import { restaurants, renderRestaurants } from "./food";
 import { incidents, renderIncidents } from "./car";
+import { crousPlaces } from "./crous";
 import { setList } from "./uiList";
 
 export function search(query: string) {
@@ -36,6 +37,7 @@ export function search(query: string) {
     renderRestaurants(filtered);
 
     setList(filtered.map(r => ({
+      id: r.id,
       title: r.name,
       subtitle: r.address,
       typeLabel: "restaurant"
@@ -59,6 +61,19 @@ export function search(query: string) {
       typeLabel: "incident"
     })));
   }
+
+  if (currentMode === "crous") {
+    const filtered = crousPlaces.filter(c =>
+      c.name.toLowerCase().includes(q) ||
+      c.address.toLowerCase().includes(q)
+    );
+
+    setList(filtered.map(c => ({
+      title: c.name,
+      subtitle: c.address,
+      typeLabel: "crous"
+    })));
+  }
 }
 
 export function refreshList() {
@@ -80,6 +95,7 @@ export function refreshList() {
     renderRestaurants(restaurants);
 
     setList(restaurants.map(r => ({
+      id: r.id,
       title: r.name,
       subtitle: r.address,
       typeLabel: "restaurant"
@@ -95,6 +111,14 @@ export function refreshList() {
       title: i.street,
       subtitle: i.type,
       typeLabel: "incident"
+    })));
+  }
+
+  if (currentMode === "crous") {
+    setList(crousPlaces.map(c => ({
+      title: c.name,
+      subtitle: c.address,
+      typeLabel: "crous"
     })));
   }
 }

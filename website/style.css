@@ -66,7 +66,6 @@ nav {
     justify-content: center;
     align-items: center;
     cursor: pointer;
-
     transition: all 0.25s ease;
     padding: 0;
 }
@@ -162,7 +161,25 @@ nav {
     color: #A7A7A7;
 }
 
-/* ANIMATION */
+.item .button {
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+}
+
+.item button {
+    background-color: #FF6A1C;
+    border: none;
+    font-family: "Bree Serif", serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 20px;
+    color: #FFFFFF;
+    padding: 10px 20px 10px 20px;
+    transition: all 0.25s ease;
+    cursor: pointer;
+}
+
 .nav-btn {
     transition: all 0.25s ease;
     cursor: pointer;
@@ -204,4 +221,218 @@ nav {
 
 .nav-search-btn:hover img {
     transform: rotate(10deg) scale(1.1);
+}
+
+.item button:hover {
+    transform: translateX(-4px);
+}
+
+.station-marker {
+  filter: invert(48%) sepia(79%) saturate(2476%) hue-rotate(346deg) brightness(101%) contrast(97%);
+}
+
+.leaflet-popup-content-wrapper {
+    border-radius: 0px;
+    border: 2px solid #D2D2D2;
+}
+
+.leaflet-popup-content .title {
+    font-family: "League Gothic", sans-serif;
+    font-size: 24px;
+    color: black;
+}
+
+.leaflet-popup-content .subtitle {
+    color: #A7A7A7;
+    margin-top: 2px;
+    margin-bottom: 0px;
+    font-family: "Bree Serif", serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 14px;
+}
+
+.leaflet-popup-content .type {
+    display: flex;
+    justify-content: center;
+    justify-content: left;
+    margin-top: 0px;
+}
+
+.leaflet-popup-content .type img {
+    max-width: 15px;
+    padding-right: 6px;
+    filter: invert(41%) sepia(99%) saturate(749%) hue-rotate(346deg);
+}
+
+.leaflet-popup-content .type p {
+    color: black;
+    margin-top: 2px;
+    margin-bottom: 0px;
+    font-family: "Bree Serif", serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 15px;
+}
+
+.leaflet-popup-tip {
+    border: 2px solid #D2D2D2;
+}
+
+.leaflet-marker-icon:focus,
+.leaflet-marker-icon:active {
+  outline: none;
+}
+
+.modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.45);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-overlay.active {
+    display: flex;
+}
+
+.modal {
+    background-color: #FFFFFF;
+    border: 2px solid #D2D2D2;
+    width: 480px;
+    max-width: 95vw;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+    animation: modalIn 0.25s ease;
+}
+
+@keyframes modalIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.modal h2 {
+    margin: 0;
+    font-size: 36px;
+    font-family: "League Gothic", sans-serif;
+    border-bottom: 2px solid #FF6A1C;
+    padding-bottom: 12px;
+    color: #1a1a1a;
+}
+
+.modal-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.modal-field label {
+    font-family: "League Gothic", sans-serif;
+    font-size: 18px;
+    color: #555;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.modal-field input {
+    border: 2px solid #D2D2D2;
+    outline: none;
+    padding: 10px 14px;
+    font-family: "Bree Serif", serif;
+    font-size: 16px;
+    color: #1a1a1a;
+    background: #F8F8F8;
+    transition: border-color 0.2s ease;
+}
+
+.modal-field input:focus {
+    border-color: #FF6A1C;
+    background: #fff;
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 8px;
+}
+
+.modal-actions button {
+    border: none;
+    font-family: "Bree Serif", serif;
+    font-size: 18px;
+    padding: 10px 28px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-cancel {
+    background-color: #F3F3F3;
+    color: #555;
+    border: 2px solid #D2D2D2 !important;
+}
+
+.btn-cancel:hover {
+    background-color: #e8e8e8;
+    transform: translateY(-2px);
+}
+
+.btn-send {
+    background-color: #FF6A1C;
+    color: #FFFFFF;
+}
+
+.btn-send:hover {
+    background-color: #ff7b33;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(255, 106, 28, 0.35);
+}
+
+.modal-status-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    font-weight: bold;
+    margin: 0 auto 0;
+}
+
+.modal-status-icon--success {
+    background-color: #FFF0E8;
+    color: #FF6A1C;
+    border: 2px solid #FF6A1C;
+}
+
+.modal-status-icon--error {
+    background-color: #F3F3F3;
+    color: #555;
+    border: 2px solid #D2D2D2;
+}
+
+#modal-success-content h2,
+#modal-error-content h2 {
+    border-bottom: 2px solid #FF6A1C;
+    padding-bottom: 12px;
+}
+
+#modal-success-content p,
+#modal-error-content p {
+    font-family: "Bree Serif", serif;
+    font-size: 16px;
+    color: #555;
+    margin: 0;
 }
