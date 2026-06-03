@@ -42,8 +42,100 @@
                 <p>CHARGEMENT EN COURS</p>
             </div>
             <div id="map" class="map"></div>
-                <script type="module" src="./dist/bundle.js"></script>
+            <script type="module" src="./dist/bundle.js"></script>
+        </div>
+
+        <!-- MODAL RÉSERVATION -->
+        <div class="modal-overlay" id="reservationModal">
+            <div class="modal">
+                <h2>RÉSERVATION</h2>
+
+                <div class="modal-field">
+                    <label for="res-nom">Nom</label>
+                    <input type="text" id="res-nom" placeholder="Dupont">
+                </div>
+
+                <div class="modal-field">
+                    <label for="res-prenom">Prénom</label>
+                    <input type="text" id="res-prenom" placeholder="Jean">
+                </div>
+
+                <div class="modal-field">
+                    <label for="res-tel">Numéro de téléphone</label>
+                    <input type="tel" id="res-tel" placeholder="06 12 34 56 78">
+                </div>
+
+                <div class="modal-field">
+                    <label for="res-nb">Nombre de personnes</label>
+                    <input type="number" id="res-nb" placeholder="2" min="1">
+                </div>
+
+                <!-- Champ caché pour l'ID du restaurant -->
+                <input type="hidden" id="res-restaurant-id">
+
+                <div class="modal-actions">
+                    <button class="btn-cancel" onclick="closeReservationModal()">Annuler</button>
+                    <button class="btn-send" onclick="submitReservation()">Envoyer</button>
+                </div>
             </div>
         </div>
+
+        <script>
+            function openReservationModal(restaurantId) {
+                document.getElementById('res-restaurant-id').value = restaurantId;
+                document.getElementById('reservationModal').classList.add('active');
+            }
+
+            function closeReservationModal() {
+                document.getElementById('reservationModal').classList.remove('active');
+                // Réinitialiser les champs
+                document.getElementById('res-nom').value = '';
+                document.getElementById('res-prenom').value = '';
+                document.getElementById('res-tel').value = '';
+                document.getElementById('res-nb').value = '';
+                document.getElementById('res-restaurant-id').value = '';
+            }
+
+            function submitReservation() {
+                const nom = document.getElementById('res-nom').value.trim();
+                const prenom = document.getElementById('res-prenom').value.trim();
+                const tel = document.getElementById('res-tel').value.trim();
+                const nb = document.getElementById('res-nb').value.trim();
+                const restaurantId = document.getElementById('res-restaurant-id').value;
+
+                if (!nom || !prenom || !tel || !nb) {
+                    alert('Veuillez remplir tous les champs.');
+                    return;
+                }
+
+                fetch('http://localhost:8080/reservation', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        nom,
+                        prenom,
+                        telephone: tel,
+                        nbPersonnes: parseInt(nb),
+                        restaurantId
+                    })
+                })
+                .then(res => {
+                    if (res.ok) {
+                        closeReservationModal();
+                        alert('Réservation envoyée avec succès !');
+                    } else {
+                        alert('Erreur lors de l\'envoi. Veuillez réessayer.');
+                    }
+                })
+                .catch(() => {
+                    alert('Impossible de contacter le serveur.');
+                });
+            }
+
+            // Fermer le modal en cliquant sur l'overlay
+            document.getElementById('reservationModal').addEventListener('click', function(e) {
+                if (e.target === this) closeReservationModal();
+            });
+        </script>
     </body>
 </html>

@@ -1,4 +1,4 @@
-export function setList(items: { title: string; subtitle: string; typeLabel: "velo" | "restaurant" | "incident" }[]) {
+export function setList(items: { id?: string | number; title: string; subtitle: string; typeLabel: "velo" | "restaurant" | "incident" }[]) {
   const container = document.querySelector(".list-items")!;
   container.innerHTML = "";
 
@@ -33,6 +33,8 @@ export function setList(items: { title: string; subtitle: string; typeLabel: "ve
         ? "Station de Vélo"
         : "Incident";
 
+    const restaurantId = i.id ?? "";
+
     div.innerHTML = `
       <h3>${i.title}</h3>
       <p>${i.subtitle}</p>
@@ -41,7 +43,7 @@ export function setList(items: { title: string; subtitle: string; typeLabel: "ve
         <p>${label}</p>
       </div>
       <div class="button">
-        <button>Reservation</button>
+        <button onclick="openReservationModal('${restaurantId}')">Réservation</button>
       </div>
     `;
 
