@@ -228,6 +228,10 @@ nav {
     transform: translateX(-4px);
 }
 
+.station-marker {
+  filter: invert(48%) sepia(79%) saturate(2476%) hue-rotate(346deg) brightness(101%) contrast(97%);
+}
+
 /* ===== MODAL ===== */
 .modal-overlay {
     display: none;

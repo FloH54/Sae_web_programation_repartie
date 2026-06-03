@@ -31,7 +31,13 @@ export function loadVelibStations() {
 
 export function renderStations(list: Station[]) {
   list.forEach(s => {
-    const marker = L.marker([s.lat, s.lon]).bindPopup(
+    const marker = L.marker([s.lat, s.lon], {
+      icon: L.icon({
+        iconUrl: './assets/location.svg',
+        iconSize: [30, 30],
+        className: 'station-marker'
+      })
+    }).bindPopup(
       `<b>${s.name}</b><br>${s.address}<br>Capacité : ${s.capacity}`
     );
 

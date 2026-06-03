@@ -41,7 +41,13 @@ export function loadIncidents() {
 
 export function renderIncidents(list: Incident[]) {
   list.forEach(i => {
-    const marker = L.marker([i.lat, i.lon]).bindPopup(`
+    const marker = L.marker([i.lat, i.lon], {
+          icon: L.icon({
+            iconUrl: './assets/location.svg',
+            iconSize: [30, 30],
+            className: 'station-marker'
+          })
+    }).bindPopup(`
       <b>${i.street}</b><br>
       <b>${i.type}</b><br>
       ${i.description}
