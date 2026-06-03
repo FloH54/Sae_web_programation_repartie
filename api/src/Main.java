@@ -27,6 +27,7 @@ public class Main {
         routesList.add(new Route("road", RoadHandler.class));
         routesList.add(new Route("restaurants", RestaurantHandler.class));
         routesList.add(new Route("reservation", ReservationHandler.class));
+        routesList.add(new Route("crous", CrousHandler.class));
 
         HttpServer server = HttpServer.create(new InetSocketAddress(8080), 0);
 
