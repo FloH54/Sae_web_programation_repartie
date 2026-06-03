@@ -180,7 +180,6 @@ nav {
     cursor: pointer;
 }
 
-/* ANIMATION */
 .nav-btn {
     transition: all 0.25s ease;
     cursor: pointer;
@@ -285,7 +284,6 @@ nav {
   outline: none;
 }
 
-/* ===== MODAL ===== */
 .modal-overlay {
     display: none;
     position: fixed;
@@ -410,7 +408,7 @@ nav {
     justify-content: center;
     font-size: 2rem;
     font-weight: bold;
-    margin: 0 auto 0; /* le gap:24px du .modal gère l'espacement */
+    margin: 0 auto 0;
 }
 
 .modal-status-icon--success {

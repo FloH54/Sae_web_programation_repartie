@@ -22,10 +22,10 @@ public class Database {
 
             connection = DriverManager.getConnection(url, user, pass);
 
-            System.out.println("✅ Connexion DB réussie");
+            System.out.println("Connexion DB réussie");
 
         } catch (SQLException e) {
-            System.out.println("❌ Erreur connexion DB");
+            System.out.println("Erreur connexion DB");
             e.printStackTrace();
         }
     }

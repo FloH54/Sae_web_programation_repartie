@@ -5,13 +5,11 @@ function openReservationModal(restaurantId: string): void {
 
 function closeReservationModal(): void {
   document.getElementById("reservationModal")!.classList.remove("active");
-  // Reset form
   (document.getElementById("res-nom") as HTMLInputElement).value = "";
   (document.getElementById("res-prenom") as HTMLInputElement).value = "";
   (document.getElementById("res-tel") as HTMLInputElement).value = "";
   (document.getElementById("res-nb") as HTMLInputElement).value = "";
   (document.getElementById("res-restaurant-id") as HTMLInputElement).value = "";
-  // Reset view
   showReservationForm();
 }
 
