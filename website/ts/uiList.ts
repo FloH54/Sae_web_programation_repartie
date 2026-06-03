@@ -40,6 +40,9 @@ export function setList(items: { title: string; subtitle: string; typeLabel: "ve
         <img src="${icon}" alt="${label}">
         <p>${label}</p>
       </div>
+      <div class="button">
+        <button>Reservation</button>
+      </div>
     `;
 
     container.appendChild(div);

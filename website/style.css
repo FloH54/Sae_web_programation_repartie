@@ -162,6 +162,24 @@ nav {
     color: #A7A7A7;
 }
 
+.item .button {
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+}
+
+.item button {
+    background-color: #FF6A1C;
+    border: none;
+    font-family: "Bree Serif", serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 20px;
+    color: #FFFFFF;
+    padding: 10px 20px 10px 20px;
+    transition: all 0.25s ease;
+}
+
 /* ANIMATION */
 .nav-btn {
     transition: all 0.25s ease;
@@ -204,4 +222,8 @@ nav {
 
 .nav-search-btn:hover img {
     transform: rotate(10deg) scale(1.1);
+}
+
+.item button:hover {
+    transform: translateX(-4px);
 }
