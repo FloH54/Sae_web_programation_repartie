@@ -10,7 +10,8 @@ import java.util.Map;
 
 import java.util.Map;
 
-// java -cp ".;../mariadb-java-client-3.5.8.jar" Main
+// javac -cp ".;../lib/*" *.java
+// java -cp ".;../lib/*;." Main
 
 public class Main {
 
