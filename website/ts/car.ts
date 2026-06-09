@@ -1,4 +1,5 @@
 import { addMarker } from "./map";
+import { refreshList } from "./search";
 import * as L from "leaflet";
 
 export type Incident = {
@@ -10,8 +11,15 @@ export type Incident = {
 };
 
 export let incidents: Incident[] = [];
+let incidentsLoaded = false;
 
 export function loadIncidents() {
+  if (incidentsLoaded) {
+    renderIncidents(incidents);
+    refreshList();
+    return;
+  }
+
   fetch("http://localhost:8080/road")
     .then(r => r.json())
     .then(res => {
@@ -29,8 +37,10 @@ export function loadIncidents() {
       });
 
       incidents = [...apiIncidents];
+      incidentsLoaded = true;
 
       renderIncidents(incidents);
+      refreshList();
     })
     .catch(err => {
       console.error("Erreur API incidents:", err);

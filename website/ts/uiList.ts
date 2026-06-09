@@ -1,3 +1,33 @@
+export function setListLoading(message: string) {
+  const container = document.querySelector(".list-items")!;
+  container.innerHTML = "";
+
+  const loading = document.createElement("div");
+  loading.className = "item empty loading";
+
+  loading.innerHTML = `
+    <h3>${message}</h3>
+    <p>Veuillez patienter</p>
+  `;
+
+  container.appendChild(loading);
+}
+
+export function setListError(message: string) {
+  const container = document.querySelector(".list-items")!;
+  container.innerHTML = "";
+
+  const error = document.createElement("div");
+  error.className = "item empty";
+
+  error.innerHTML = `
+    <h3>Erreur</h3>
+    <p>${message}</p>
+  `;
+
+  container.appendChild(error);
+}
+
 export function setList(items: {
   id?: string | number;
   title: string;
@@ -40,13 +70,20 @@ export function setList(items: {
         ? "Station de Vélo"
         : "Incident";
 
-    const restaurantId = i.id ?? "";
+    const itemId = i.id ?? "";
 
-    let reservationBtn = "";
+    let actionBtn = "";
     if (i.typeLabel === "restaurant") {
-      reservationBtn = `
+      actionBtn = `
         <div class="button">
-          <button onclick="openReservationModal('${restaurantId}')">Réservation</button>
+          <button onclick="openReservationModal('${itemId}')">Réservation</button>
+        </div>
+      `;
+    } else if (i.typeLabel === "crous" && itemId !== "") {
+      const safeTitle = i.title.replace(/'/g, "\\'");
+      actionBtn = `
+        <div class="button">
+          <button onclick="openMenuModal('${itemId}', '${safeTitle}')">Menu</button>
         </div>
       `;
     }
@@ -58,7 +95,7 @@ export function setList(items: {
         <img src="${icon}" alt="${label}">
         <p>${label}</p>
       </div>
-      ${reservationBtn}
+      ${actionBtn}
     `;
 
     container.appendChild(div);

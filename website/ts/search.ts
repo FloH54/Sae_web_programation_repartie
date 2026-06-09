@@ -3,8 +3,8 @@ import { currentMode } from "./store";
 import { velibStations, renderStations } from "./bike";
 import { restaurants, renderRestaurants } from "./food";
 import { incidents, renderIncidents } from "./car";
-import { crousPlaces } from "./crous";
-import { setList } from "./uiList";
+import { crousPlaces, crousLoading, renderCrous } from "./crous";
+import { setList, setListLoading } from "./uiList";
 
 export function search(query: string) {
   const q = query.toLowerCase();
@@ -63,12 +63,20 @@ export function search(query: string) {
   }
 
   if (currentMode === "crous") {
+    if (crousLoading) {
+      setListLoading("Recherche en cours...");
+      return;
+    }
+
     const filtered = crousPlaces.filter(c =>
       c.name.toLowerCase().includes(q) ||
       c.address.toLowerCase().includes(q)
     );
 
+    renderCrous(filtered);
+
     setList(filtered.map(c => ({
+      id: c.id,
       title: c.name,
       subtitle: c.address,
       typeLabel: "crous"
@@ -115,7 +123,15 @@ export function refreshList() {
   }
 
   if (currentMode === "crous") {
+    if (crousLoading) {
+      setListLoading("Recherche en cours...");
+      return;
+    }
+
+    renderCrous(crousPlaces);
+
     setList(crousPlaces.map(c => ({
+      id: c.id,
       title: c.name,
       subtitle: c.address,
       typeLabel: "crous"

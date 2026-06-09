@@ -1,8 +1,10 @@
 import { addMarker } from "./map";
 import { refreshList } from "./search";
+import { setListError, setListLoading } from "./uiList";
 import * as L from "leaflet";
 
 export type Crous = {
+  id: number;
   name: string;
   address: string;
   lat: number;
@@ -10,12 +12,29 @@ export type Crous = {
 };
 
 export let crousPlaces: Crous[] = [];
+export let crousLoading = false;
+let crousLoaded = false;
 
 export function loadCrous() {
+  if (crousLoaded) {
+    renderCrous(crousPlaces);
+    refreshList();
+    return;
+  }
+
+  crousLoading = true;
+  setListLoading("Recherche en cours...");
+
   fetch("http://localhost:8080/crous")
-    .then(r => r.json())
+    .then(r => {
+      if (!r.ok) throw new Error("api error");
+      return r.json();
+    })
     .then(res => {
+      if (res.error) throw new Error(res.error);
+
       const apiCrous: Crous[] = res.map((i: any) => ({
+        id: i.id,
         name: i.nom,
         address: i.adresse,
         lat: i.latitude,
@@ -23,12 +42,14 @@ export function loadCrous() {
       }));
 
       crousPlaces = apiCrous;
-
-      renderCrous(crousPlaces);
+      crousLoaded = true;
+      crousLoading = false;
       refreshList();
     })
     .catch(err => {
+      crousLoading = false;
       console.error("Erreur API Crous:", err);
+      setListError("Impossible de charger les restaurants CROUS.");
       renderCrous([]);
     });
 }

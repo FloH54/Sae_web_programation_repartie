@@ -41,6 +41,7 @@ public class CrousHandler implements HttpHandler {
                 if (region.getInt("code") == 19) {
                     // On garde seulement certaines infos (comme RestaurantHandler)
                     JSONObject obj = new JSONObject();
+                    obj.put("id", resto.getInt("code"));
                     obj.put("nom", resto.getString("nom"));
                     obj.put("adresse", resto.getString("adresse"));
                     obj.put("latitude", resto.getDouble("latitude"));
