@@ -76,6 +76,11 @@
                         <input type="number" id="res-nb" placeholder="2" min="1">
                     </div>
 
+                    <div class="modal-field">
+                        <label for="res-date">Date de réservation</label>
+                        <input type="date" id="res-date" required>
+                    </div>
+
                     <input type="hidden" id="res-restaurant-id">
 
                     <div class="modal-actions">
@@ -98,8 +103,7 @@
                     <h2>Une erreur est survenue</h2>
                     <p id="modal-error-message"></p>
                     <div class="modal-actions">
-                        <button class="btn-cancel" onclick="showReservationForm()">Retour</button>
-                        <button class="btn-send" onclick="submitReservation()">Réessayer</button>
+                        <button class="btn-cancel" onclick="closeReservationModal()">Retour</button>
                     </div>
                 </div>
 
