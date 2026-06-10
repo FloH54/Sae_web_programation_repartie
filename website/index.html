@@ -32,8 +32,8 @@
 
             <input id="search" class="nav-search" type="text" placeholder="ENTRER LA RECHERCHE">
 
-            <button class="nav-search-btn" onclick="search()" aria-label="Rechercher">
-                <img src="assets/search.svg" alt="rechercher">
+            <button class="nav-search-btn" onclick="showCompteRendu()" aria-label="Compte rendu">
+                <img src="assets/doc.svg" alt="Compte rendu du projet">
             </button>
         </nav>
 
@@ -42,6 +42,9 @@
                 <p>CHARGEMENT EN COURS</p>
             </div>
             <div id="map" class="map"></div>
+
+            <div id="compte-rendu" style="display:none"></div>
+
             <script type="module" src="./dist/bundle.js"></script>
         </div>
 

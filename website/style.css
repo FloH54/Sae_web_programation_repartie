@@ -400,3 +400,12 @@ nav {
     transform: translateY(-2px);
     box-shadow: 0 6px 18px rgba(255, 106, 28, 0.35);
 }
+
+#compte-rendu {
+    width: 200%;
+    height: 200%;
+    font-size: 150%;
+    overflow-y: auto;
+    padding: 20px;
+    box-sizing: border-box;
+}
