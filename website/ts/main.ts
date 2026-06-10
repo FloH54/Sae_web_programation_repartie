@@ -12,6 +12,7 @@ import {
   initModal,
 } from "./modal";
 import { openMenuModal, closeMenuModal, initMenuModal } from "./menuModal";
+import {marked} from "marked";
 
 document.addEventListener("DOMContentLoaded", () => {
   setMode("velo");
@@ -49,6 +50,30 @@ document.addEventListener("DOMContentLoaded", () => {
   setMode("crous");
   clearOverlayMarkers();
   loadCrous();
+};
+
+async function afficherCompteRendu() {
+  const liste = document.querySelector(".list-items") as HTMLElement;
+  const map = document.querySelector(".map") as HTMLElement;
+  const compteRendu = document.getElementById("compte-rendu")!;
+
+  liste.style.display = "none";
+  map.style.display = "none";
+  compteRendu.style.display = "block";
+
+  try {
+    const md = await fetch("rendu.md").then(r => {
+      if (!r.ok) throw new Error("Fichier introuvable");
+      return r.text();
+    });
+    compteRendu.innerHTML = marked.parse(md).toString();
+  } catch (e) {
+    compteRendu.innerHTML = "<p>Impossible de charger le compte rendu.</p>";
+  }
+}
+
+(window as any).showCompteRendu = () => {
+  afficherCompteRendu();
 };
 
 (window as any).openReservationModal = openReservationModal;

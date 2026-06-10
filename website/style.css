@@ -572,3 +572,12 @@ nav {
     border-top: 2px solid #D2D2D2;
     padding-top: 16px;
 }
+
+#compte-rendu {
+    width: 100%;
+    height: 100%;
+    font-size: 150%;
+    overflow-y: auto;
+    padding: 20px;
+    box-sizing: border-box;
+}
