@@ -10,7 +10,8 @@ import java.util.Map;
 
 import java.util.Map;
 
-// java -cp ".;../mariadb-java-client-3.5.8.jar" Main
+// javac -cp ".;../lib/*" *.java
+// java -cp ".;../lib/*;." Main
 
 public class Main {
 
@@ -27,6 +28,8 @@ public class Main {
         routesList.add(new Route("road", RoadHandler.class));
         routesList.add(new Route("restaurants", RestaurantHandler.class));
         routesList.add(new Route("reservation", ReservationHandler.class));
+        routesList.add(new Route("crous", CrousHandler.class));
+        routesList.add(new Route("crous/menu", CrousMenuHandler.class));
 
         HttpServer server = HttpServer.create(new InetSocketAddress(8080), 0);
 

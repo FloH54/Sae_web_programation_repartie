@@ -11,8 +11,15 @@ export type Restaurant = {
 };
 
 export let restaurants: Restaurant[] = [];
+let restaurantsLoaded = false;
 
 export function loadRestaurants() {
+  if (restaurantsLoaded) {
+    renderRestaurants(restaurants);
+    refreshList();
+    return;
+  }
+
   fetch("http://localhost:8080/restaurants")
     .then(r => r.json())
     .then(res => {
@@ -30,9 +37,9 @@ export function loadRestaurants() {
       });
 
       restaurants = apiRestaurants;
+      restaurantsLoaded = true;
 
       renderRestaurants(restaurants);
-
       refreshList();
     })
     .catch(err => {

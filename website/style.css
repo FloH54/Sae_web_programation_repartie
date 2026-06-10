@@ -180,7 +180,6 @@ nav {
     cursor: pointer;
 }
 
-/* ANIMATION */
 .nav-btn {
     transition: all 0.25s ease;
     cursor: pointer;
@@ -285,7 +284,6 @@ nav {
   outline: none;
 }
 
-/* ===== MODAL ===== */
 .modal-overlay {
     display: none;
     position: fixed;
@@ -401,11 +399,176 @@ nav {
     box-shadow: 0 6px 18px rgba(255, 106, 28, 0.35);
 }
 
-#compte-rendu {
-    width: 200%;
-    height: 200%;
-    font-size: 150%;
+.modal-status-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    font-weight: bold;
+    margin: 0 auto 0;
+}
+
+.modal-status-icon--success {
+    background-color: #FFF0E8;
+    color: #FF6A1C;
+    border: 2px solid #FF6A1C;
+}
+
+.modal-status-icon--error {
+    background-color: #F3F3F3;
+    color: #555;
+    border: 2px solid #D2D2D2;
+}
+
+#modal-success-content h2,
+#modal-error-content h2 {
+    border-bottom: 2px solid #FF6A1C;
+    padding-bottom: 12px;
+}
+
+#modal-success-content p,
+#modal-error-content p {
+    font-family: "Bree Serif", serif;
+    font-size: 16px;
+    color: #555;
+    margin: 0;
+}
+
+/* ── Modal menu CROUS ── */
+
+.modal--menu {
+    width: 560px;
+    max-height: 85vh;
+    padding: 32px 36px 28px;
+    gap: 16px;
+}
+
+.modal--menu h2 {
+    flex-shrink: 0;
+}
+
+.menu-scroll {
     overflow-y: auto;
+    flex: 1;
+    min-height: 0;
+    max-height: calc(85vh - 160px);
+    padding-right: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.menu-scroll::-webkit-scrollbar {
+    width: 6px;
+}
+
+.menu-scroll::-webkit-scrollbar-track {
+    background: #F3F3F3;
+}
+
+.menu-scroll::-webkit-scrollbar-thumb {
+    background: #D2D2D2;
+    border-radius: 3px;
+}
+
+.menu-scroll::-webkit-scrollbar-thumb:hover {
+    background: #FF6A1C;
+}
+
+.menu-loading,
+.menu-empty {
+    font-family: "Bree Serif", serif;
+    font-size: 16px;
+    color: #A7A7A7;
+    text-align: center;
+    margin: 32px 0;
+}
+
+.menu-loading {
+    color: #555;
+}
+
+.menu-day {
+    border: 2px solid #D2D2D2;
+    background: #F8F8F8;
     padding: 20px;
-    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.menu-day h3 {
+    margin: 0;
+    font-family: "League Gothic", sans-serif;
+    font-size: 26px;
+    color: #1a1a1a;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    border-bottom: 2px solid #FF6A1C;
+    padding-bottom: 8px;
+}
+
+.menu-repas {
+    background: #FFFFFF;
+    border: 2px solid #D2D2D2;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.menu-repas h4 {
+    margin: 0;
+    font-family: "League Gothic", sans-serif;
+    font-size: 22px;
+    color: #FF6A1C;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+.menu-category {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.menu-category-label {
+    margin: 0;
+    font-family: "League Gothic", sans-serif;
+    font-size: 16px;
+    color: #555;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.menu-category ul {
+    margin: 0;
+    padding: 0 0 0 18px;
+    list-style: none;
+}
+
+.menu-category li {
+    font-family: "Bree Serif", serif;
+    font-size: 15px;
+    color: #1a1a1a;
+    padding: 4px 0;
+    position: relative;
+}
+
+.menu-category li::before {
+    content: "•";
+    color: #FF6A1C;
+    font-weight: bold;
+    position: absolute;
+    left: -14px;
+}
+
+.modal--menu .modal-actions {
+    flex-shrink: 0;
+    margin-top: 4px;
+    border-top: 2px solid #D2D2D2;
+    padding-top: 16px;
 }

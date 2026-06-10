@@ -1,4 +1,5 @@
 import { addMarker } from "./map";
+import { refreshList } from "./search";
 import * as L from "leaflet";
 
 export type Station = {
@@ -10,8 +11,15 @@ export type Station = {
 };
 
 export let velibStations: Station[] = [];
+let velibLoaded = false;
 
 export function loadVelibStations() {
+  if (velibLoaded) {
+    renderStations(velibStations);
+    refreshList();
+    return;
+  }
+
   const url = "https://api.cyclocity.fr/contracts/nancy/gbfs/v3/station_information.json";
 
   fetch(url)
@@ -25,7 +33,9 @@ export function loadVelibStations() {
         capacity: s.capacity,
       }));
 
+      velibLoaded = true;
       renderStations(velibStations);
+      refreshList();
     });
 }
 
