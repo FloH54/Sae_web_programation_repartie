@@ -1,0 +1,1 @@
+export const API_BASE = new URLSearchParams(window.location.search).get("api") ?? "http://localhost:8080";

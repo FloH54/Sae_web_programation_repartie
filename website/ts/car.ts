@@ -1,6 +1,7 @@
 import { addMarker } from "./map";
 import { refreshList } from "./search";
 import * as L from "leaflet";
+import { API_BASE } from "./apiConfig";
 
 export type Incident = {
   street: string;
@@ -20,7 +21,7 @@ export function loadIncidents() {
     return;
   }
 
-  fetch("http://localhost:8080/road")
+  fetch(`${API_BASE}/road`)
     .then(r => r.json())
     .then(res => {
 

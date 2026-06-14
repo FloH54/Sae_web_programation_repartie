@@ -2,6 +2,7 @@ import { addMarker } from "./map";
 import { refreshList } from "./search";
 import { setListError, setListLoading } from "./uiList";
 import * as L from "leaflet";
+import { API_BASE } from "./apiConfig";
 
 export type Crous = {
   id: number;
@@ -25,7 +26,7 @@ export function loadCrous() {
   crousLoading = true;
   setListLoading("Recherche en cours...");
 
-  fetch("http://localhost:8080/crous")
+  fetch(`${API_BASE}/crous`)
     .then(r => {
       if (!r.ok) throw new Error("api error");
       return r.json();

@@ -22,6 +22,11 @@ public class Main {
 
         Database.init(env);
 
+        System.setProperty("http.proxyHost", "www-cache.iutnc.univ-lorraine.fr");
+        System.setProperty("http.proxyPort", "3128");
+        System.setProperty("https.proxyHost", "www-cache.iutnc.univ-lorraine.fr");
+        System.setProperty("https.proxyPort", "3128");
+
         ArrayList<Route> routesList = new ArrayList<>();
 
         routesList.add(new Route("ping", PingHandler.class));
@@ -35,8 +40,7 @@ public class Main {
 
         for (Route route : routesList) {
             server.createContext("/" + route.name,
-                (HttpHandler) route.classRoute.getDeclaredConstructor().newInstance()
-            );
+                    (HttpHandler) route.classRoute.getDeclaredConstructor().newInstance());
         }
 
         server.setExecutor(null);

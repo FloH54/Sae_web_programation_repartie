@@ -1,3 +1,5 @@
+import { API_BASE } from "./apiConfig";
+
 function openReservationModal(restaurantId: string): void {
   (document.getElementById("res-restaurant-id") as HTMLInputElement).value = restaurantId;
 
@@ -70,7 +72,7 @@ async function submitReservation(): Promise<void> {
 
   try {
 
-    const res = await fetch("http://localhost:8080/reservation", {
+    const res = await fetch(`${API_BASE}/reservation`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"

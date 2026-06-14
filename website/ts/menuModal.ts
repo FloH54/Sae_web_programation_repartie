@@ -1,3 +1,5 @@
+import { API_BASE } from "./apiConfig";
+
 type MenuPlat = { libelle: string };
 type MenuCategory = { libelle: string; plats: MenuPlat[] };
 type MenuRepas = { type: string; categories: MenuCategory[] };
@@ -56,7 +58,7 @@ async function openMenuModal(crousId: string, restaurantName: string): Promise<v
   modal.classList.add("active");
 
   try {
-    const res = await fetch(`http://localhost:8080/crous/menu?id=${crousId}`);
+    const res = await fetch(`${API_BASE}/crous/menu?id=${crousId}`);
     const json = await res.json().catch(() => null);
 
     if (!res.ok || json?.error) {

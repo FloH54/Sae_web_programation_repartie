@@ -1,6 +1,7 @@
 import { addMarker } from "./map";
 import { refreshList } from "./search";
 import * as L from "leaflet";
+import { API_BASE } from "./apiConfig";
 
 export type Restaurant = {
   id: number;
@@ -20,7 +21,7 @@ export function loadRestaurants() {
     return;
   }
 
-  fetch("http://localhost:8080/restaurants")
+  fetch(`${API_BASE}/restaurants`)
     .then(r => r.json())
     .then(res => {
 
